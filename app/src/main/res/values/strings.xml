@@ -4,4 +4,8 @@
     <string name="menu_item_new_reminder">New Reminder</string>
     <string name="menu_item_exit">Exit</string>
     <string name="cam_menu_item_delete">delete</string>
+    <string name="custom_title_text">New Reminder</string>
+    <string name="custom_checkbox_text">Important</string>
+    <string name="custom_button_commit_text">Commit</string>
+    <string name="custom_button_cancel_text">Cancel</string>
 </resources>
