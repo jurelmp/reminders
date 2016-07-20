@@ -32,7 +32,7 @@ public class RemindersDbAdapter {
     // SQL statement used to create the database
     private static final String DATABASE_CREATE =
             "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ( " +
-                    COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COL_CONTENT + " TEXT, " +
                     COL_IMPORTANT + " INTEGER );";
     private final Context mCtx;
