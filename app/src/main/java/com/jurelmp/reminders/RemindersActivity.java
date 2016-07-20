@@ -47,12 +47,12 @@ public class RemindersActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        if (savedInstanceState == null) {
+        /* if (savedInstanceState == null) {
             // Clear all data
             mDbAdapter.deleteAllReminders();
             // Add some data
             insertSomeReminders();
-        }
+        } */
 
 
         Cursor cursor = mDbAdapter.fetchAllReminders();
@@ -108,8 +108,7 @@ public class RemindersActivity extends AppCompatActivity {
                             int nId = getIdFromPosition(masterListPosition);
                             Reminder reminder = mDbAdapter.fetchReminderById(nId);
                             fireCustomDialog(reminder);
-                        }
-                        else { // delete reminder
+                        } else { // delete reminder
                             //Toast.makeText(RemindersActivity.this, String.format("delete %d", masterListPosition), Toast.LENGTH_SHORT).show();
                             mDbAdapter.deleteReminderById(getIdFromPosition(masterListPosition));
                             mCursorAdapter.changeCursor(mDbAdapter.fetchAllReminders());
