@@ -47,7 +47,7 @@ public class RemindersActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /* if (savedInstanceState == null) {
+        /** if (savedInstanceState == null) {
             // Clear all data
             mDbAdapter.deleteAllReminders();
             // Add some data
