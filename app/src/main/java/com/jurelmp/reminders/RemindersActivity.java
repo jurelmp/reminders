@@ -18,7 +18,7 @@ public class RemindersActivity extends AppCompatActivity {
 
         /**
          * The array adapter is the controller in our
-         * model-view-controller relationship. (controller)
+         * model-view-controller relationship. (controller).
          */
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
