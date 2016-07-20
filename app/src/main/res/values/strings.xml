@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Reminders</string>
     <string name="reminder_text">Reminder Text</string>
+    <string name="menu_item_new_reminder">New Reminder</string>
+    <string name="menu_item_exit">Exit</string>
 </resources>
