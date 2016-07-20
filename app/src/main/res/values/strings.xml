@@ -3,4 +3,5 @@
     <string name="reminder_text">Reminder Text</string>
     <string name="menu_item_new_reminder">New Reminder</string>
     <string name="menu_item_exit">Exit</string>
+    <string name="cam_menu_item_delete">delete</string>
 </resources>
