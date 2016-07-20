@@ -1,5 +1,7 @@
 package com.jurelmp.reminders;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +9,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 
@@ -65,6 +71,37 @@ public class RemindersActivity extends AppCompatActivity {
         // the cursorAdapter (controller) is now updating the listView (view)
         // with the data from the db (model)
         mListView.setAdapter(mCursorAdapter);
+
+        // when we click an individual item in the listview
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int masterListPosition, long id) {
+                // Toast.makeText(RemindersActivity.this, "clicked " + position, Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(RemindersActivity.this);
+                ListView modeListView = new ListView(RemindersActivity.this);
+                String[] modes = new String[]{"Edit Reminder", "Delete Reminder"};
+                ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(
+                        RemindersActivity.this,
+                        android.R.layout.simple_list_item_1,
+                        android.R.id.text1, modes);
+                modeListView.setAdapter(modeAdapter);
+                builder.setView(modeListView);
+                final Dialog dialog = builder.create();
+                dialog.show();
+
+                modeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        // edit reminder
+                        if (position == 0)
+                            Toast.makeText(RemindersActivity.this, String.format("edit %d", masterListPosition), Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(RemindersActivity.this, String.format("delete %d", masterListPosition), Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
     }
 
     private void insertSomeReminders() {
