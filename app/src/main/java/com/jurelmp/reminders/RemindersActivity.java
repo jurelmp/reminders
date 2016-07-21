@@ -1,8 +1,13 @@
 package com.jurelmp.reminders;
 
 import android.annotation.TargetApi;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,8 +28,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 
 public class RemindersActivity extends AppCompatActivity {
 
@@ -61,7 +68,7 @@ public class RemindersActivity extends AppCompatActivity {
         String[] from = new String[]{RemindersDbAdapter.COL_CONTENT};
 
         // to the ids of views in the layout
-        int[] to = new int[]{R.id.row_text};
+        final int[] to = new int[]{R.id.row_text};
 
         mCursorAdapter = new RemindersSimpleCursorAdapter(
                 // context
@@ -87,9 +94,11 @@ public class RemindersActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int masterListPosition, long id) {
                 // Toast.makeText(RemindersActivity.this, "clicked " + position, Toast.LENGTH_SHORT).show();
+
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(RemindersActivity.this);
                 ListView modeListView = new ListView(RemindersActivity.this);
-                String[] modes = new String[]{"Edit Reminder", "Delete Reminder"};
+                String[] modes = new String[]{"Edit Reminder", "Delete Reminder", "Schedule Reminder"};
                 ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(
                         RemindersActivity.this,
                         android.R.layout.simple_list_item_1,
@@ -103,15 +112,28 @@ public class RemindersActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         // edit reminder
+                        int nId = getIdFromPosition(masterListPosition);
+                        final Reminder reminder = mDbAdapter.fetchReminderById(nId);
+
                         if (position == 0) {
                             //Toast.makeText(RemindersActivity.this, String.format("edit %d", masterListPosition), Toast.LENGTH_SHORT).show();
-                            int nId = getIdFromPosition(masterListPosition);
-                            Reminder reminder = mDbAdapter.fetchReminderById(nId);
                             fireCustomDialog(reminder);
-                        } else { // delete reminder
+                        } else if (position == 1){ // delete reminder
                             //Toast.makeText(RemindersActivity.this, String.format("delete %d", masterListPosition), Toast.LENGTH_SHORT).show();
                             mDbAdapter.deleteReminderById(getIdFromPosition(masterListPosition));
                             mCursorAdapter.changeCursor(mDbAdapter.fetchAllReminders());
+                        } else {
+                            TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
+                                @Override
+                                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                    final Calendar alarmTime = Calendar.getInstance();
+                                    alarmTime.set(Calendar.HOUR, hourOfDay);
+                                    alarmTime.set(Calendar.MINUTE, minute);
+                                    scheduleReminder(alarmTime.getTimeInMillis(), reminder.getmContent());
+                                }
+                            };
+                            final Calendar today = Calendar.getInstance();
+                            new TimePickerDialog(RemindersActivity.this, null, today.get(Calendar.HOUR), today.get(Calendar.MINUTE), false).show();
                         }
                         dialog.dismiss();
                     }
@@ -161,6 +183,14 @@ public class RemindersActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void scheduleReminder(long time, String s) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent alarmIntent = new Intent(this, ReminderAlarmReceiver.class);
+        alarmIntent.putExtra(ReminderAlarmReceiver.REMINDER_TEXT, s);
+        PendingIntent broadcast = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, time, broadcast);
     }
 
     private int getIdFromPosition(int nC) {
