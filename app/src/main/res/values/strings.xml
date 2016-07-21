@@ -8,4 +8,7 @@
     <string name="custom_checkbox_text">Important</string>
     <string name="custom_button_commit_text">Commit</string>
     <string name="custom_button_cancel_text">Cancel</string>
+    <string name="dialog_about_title">Reminders!</string>
+    <string name="dialog_about_info">Version 1.0\nAll rights reserved\nDeveloped by yours truly!</string>
+    <string name="menu_item_about">About</string>
 </resources>
