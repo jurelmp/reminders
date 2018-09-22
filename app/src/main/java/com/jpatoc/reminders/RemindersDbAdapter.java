@@ -1,4 +1,4 @@
-package com.jurelmp.reminders;
+package com.jpatoc.reminders;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,9 +9,6 @@ import android.util.Log;
 
 import java.sql.SQLException;
 
-/**
- * Created by Jurel on 7/20/2016.
- */
 public class RemindersDbAdapter {
 
     // These are the column names

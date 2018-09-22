@@ -1,4 +1,4 @@
-package com.jurelmp.reminders;
+package com.jpatoc.reminders;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

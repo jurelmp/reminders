@@ -1,4 +1,4 @@
-package com.jurelmp.reminders;
+package com.jpatoc.reminders;
 
 import android.annotation.TargetApi;
 import android.app.AlarmManager;

@@ -1,4 +1,4 @@
-package com.jurelmp.reminders;
+package com.jpatoc.reminders;
 
 import org.junit.Test;
 

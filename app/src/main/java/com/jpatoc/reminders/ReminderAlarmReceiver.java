@@ -1,4 +1,4 @@
-package com.jurelmp.reminders;
+package com.jpatoc.reminders;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -11,9 +11,6 @@ import android.os.Build;
 
 import java.util.Date;
 
-/**
- * Created by Jurel on 7/21/2016.
- */
 public class ReminderAlarmReceiver extends BroadcastReceiver {
     public static final String REMINDER_TEXT = "REMINDER TEXT";
 

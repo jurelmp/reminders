@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkGrey"
-    tools:context="com.jurelmp.reminders.RemindersActivity">
+    tools:context="com.jpatoc.reminders.RemindersActivity">
 
     <ListView
         android:id="@+id/reminders_list_view"

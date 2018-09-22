@@ -1,8 +1,5 @@
-package com.jurelmp.reminders;
+package com.jpatoc.reminders;
 
-/**
- * Created by Jurel on 7/20/2016.
- */
 public class Reminder {
 
     private int mId;
